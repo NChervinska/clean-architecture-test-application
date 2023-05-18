@@ -12,15 +12,18 @@ class ImageView extends StatelessWidget {
       fit: BoxFit.contain,
       errorBuilder: (_, __, ___) => const SizedBox.shrink(),
       loadingBuilder: (_, child, loadingProgress) {
-        if (loadingProgress == null) {
-          return child;
+        if (loadingProgress == null) return child;
+
+        final expectedTotalBytes = loadingProgress.expectedTotalBytes;
+        if (expectedTotalBytes == null) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
+
         return Center(
           child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                : null,
+            value: loadingProgress.cumulativeBytesLoaded / expectedTotalBytes,
           ),
         );
       },

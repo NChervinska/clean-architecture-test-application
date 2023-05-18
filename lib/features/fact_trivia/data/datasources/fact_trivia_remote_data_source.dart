@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../models/fact_trivia_model.dart';
+import 'remote_constants.dart';
 
 abstract class FactTriviaRemoteDataSource {
   Future<FactTriviaModel> getFactTrivia();
@@ -17,8 +18,8 @@ class FactTriviaRemoteDataSourceImpl implements FactTriviaRemoteDataSource {
   @override
   Future<FactTriviaModel> getFactTrivia() async {
     final response = await client.get(
-      Uri.parse('https://catfact.ninja/fact'),
-      headers: {'Content-Type': 'application/json'},
+      Uri.parse(RemoteConstants.factTriviaUri),
+      headers: RemoteConstants.headers,
     );
     if (response.statusCode != 200) throw ServerException();
 

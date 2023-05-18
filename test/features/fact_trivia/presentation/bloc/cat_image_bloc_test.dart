@@ -23,8 +23,9 @@ void main() {
     const testCatImage = CatImage(url: 'url', height: 15, id: 'id', width: 15);
 
     test('should get data from the use case', () async {
-      when(mockGetCatImage(any))
-          .thenAnswer((_) async => const Right(testCatImage));
+      when(mockGetCatImage(any)).thenAnswer((_) async {
+        return const Right(testCatImage);
+      });
 
       bloc.add(GetCatImageEvent());
       await untilCalled(mockGetCatImage(any));
@@ -35,17 +36,13 @@ void main() {
     blocTest(
       'emits [Success] when Event is added',
       setUp: () {
-        when(mockGetCatImage(any))
-            .thenAnswer((_) async => const Right(testCatImage));
+        when(mockGetCatImage(any)).thenAnswer((_) async {
+          return const Right(testCatImage);
+        });
       },
       build: () => bloc,
       act: (bloc) => bloc.add(GetCatImageEvent()),
-      expect: () {
-        return [
-          CatImageLoading(),
-          const CatImageLoaded(testCatImage),
-        ];
-      },
+      expect: () => [CatImageLoading(), const CatImageLoaded(testCatImage)],
     );
   });
 }

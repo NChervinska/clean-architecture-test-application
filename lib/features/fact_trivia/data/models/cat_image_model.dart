@@ -1,5 +1,10 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import '../../domain/enities/cat_image.dart';
 
+part 'cat_image_model.g.dart';
+
+@JsonSerializable()
 class CatImageModel extends CatImage {
   const CatImageModel({
     required super.height,
@@ -9,20 +14,8 @@ class CatImageModel extends CatImage {
   });
 
   factory CatImageModel.fromJson(Map<String, dynamic> json) {
-    return CatImageModel(
-      height: json['height'],
-      id: json['id'],
-      url: json['url'],
-      width: json['width'],
-    );
+    return _$CatImageModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'width': width,
-      'url': url,
-      'height': height,
-      'id': id,
-    };
-  }
+  Map<String, dynamic> toJson() => _$CatImageModelToJson(this);
 }

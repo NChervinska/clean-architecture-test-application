@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../models/cat_image_model.dart';
+import 'remote_constants.dart';
 
 abstract class CatImageRemoteDataSource {
   Future<CatImageModel> getCatImage();
@@ -17,8 +18,8 @@ class CatImageRemoteDataSourceImpl implements CatImageRemoteDataSource {
   @override
   Future<CatImageModel> getCatImage() async {
     final response = await client.get(
-      Uri.parse('https://api.thecatapi.com/v1/images/search'),
-      headers: {'Content-Type': 'application/json'},
+      Uri.parse(RemoteConstants.catImageUri),
+      headers: RemoteConstants.headers,
     );
     if (response.statusCode != 200) throw ServerException();
 

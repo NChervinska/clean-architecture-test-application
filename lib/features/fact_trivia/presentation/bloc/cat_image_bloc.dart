@@ -4,12 +4,10 @@ import 'package:equatable/equatable.dart';
 import '../../../../core/error/failure.dart';
 import '../../domain/enities/cat_image.dart';
 import '../../domain/usecases/get_cat_image.dart';
+import '../fact_trivia_strings.dart';
 
 part 'cat_image_event.dart';
 part 'cat_image_state.dart';
-
-const String serverFailureMessage = 'Server Failure';
-const String cacheFailureMessage = 'Cache Failure';
 
 class CatImageBloc extends Bloc<CatImageEvent, CatImageState> {
   final GetCatImage getCatImage;
@@ -30,13 +28,13 @@ class CatImageBloc extends Bloc<CatImageEvent, CatImageState> {
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case ServerFailure:
-        return serverFailureMessage;
+        return FactTriviaStrings.serverFailureMessage;
 
       case CacheFailure:
-        return cacheFailureMessage;
+        return FactTriviaStrings.cacheFailureMessage;
 
       default:
-        return 'Unexpected error';
+        return FactTriviaStrings.unexpectedError;
     }
   }
 }

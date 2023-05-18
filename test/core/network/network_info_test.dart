@@ -21,8 +21,9 @@ void main() {
       'should forward the call to DataConnectionChecker.hasConnection',
       () async {
         final testConnectionFuture = Future.value(true);
-        when(mockInternetConnectionChecker.hasConnection)
-            .thenAnswer((_) => testConnectionFuture);
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) {
+          return testConnectionFuture;
+        });
 
         final result = networkInfo.connected;
 

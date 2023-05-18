@@ -47,8 +47,9 @@ void main() {
       test(
         'should return remote dara when the call to remote data source is successful',
         () async {
-          when(mockRemoteDataSource.getFactTrivia())
-              .thenAnswer((_) async => testFactTriviaModel);
+          when(mockRemoteDataSource.getFactTrivia()).thenAnswer((_) async {
+            return testFactTriviaModel;
+          });
 
           final result = await repository.getFactTrivia();
 
@@ -60,8 +61,9 @@ void main() {
       test(
         'should cache dara locally when the call to remote data source is successful',
         () async {
-          when(mockRemoteDataSource.getFactTrivia())
-              .thenAnswer((_) async => testFactTriviaModel);
+          when(mockRemoteDataSource.getFactTrivia()).thenAnswer((_) async {
+            return testFactTriviaModel;
+          });
 
           await repository.getFactTrivia();
 
@@ -73,8 +75,9 @@ void main() {
       test(
         'should return server failure when the call to remote data source is unsuccessful',
         () async {
-          when(mockRemoteDataSource.getFactTrivia())
-              .thenThrow(ServerException());
+          when(mockRemoteDataSource.getFactTrivia()).thenThrow(
+            ServerException(),
+          );
 
           final result = await repository.getFactTrivia();
 
@@ -92,8 +95,9 @@ void main() {
       test(
         'should return locally cache data when the cached data is present',
         () async {
-          when(mockLocalDataSource.getCacheFactTrivia())
-              .thenAnswer((_) async => testFactTriviaModel);
+          when(mockLocalDataSource.getCacheFactTrivia()).thenAnswer((_) async {
+            return testFactTriviaModel;
+          });
 
           final result = await repository.getFactTrivia();
 
@@ -106,8 +110,9 @@ void main() {
       test(
         'should return lat CacheFailure cache data when there is no cached data present ',
         () async {
-          when(mockLocalDataSource.getCacheFactTrivia())
-              .thenThrow(CacheException());
+          when(mockLocalDataSource.getCacheFactTrivia()).thenThrow(
+            CacheException(),
+          );
 
           final result = await repository.getFactTrivia();
 

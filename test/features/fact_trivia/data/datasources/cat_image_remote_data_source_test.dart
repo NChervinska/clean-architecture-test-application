@@ -6,6 +6,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test_application/core/error/exceptions.dart';
 import 'package:test_application/features/fact_trivia/data/datasources/cat_image_remote_data_source.dart';
+import 'package:test_application/features/fact_trivia/data/datasources/remote_constants.dart';
 import 'package:test_application/features/fact_trivia/data/models/cat_image_model.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
@@ -46,8 +47,8 @@ void main() {
         dataSource.getCatImage();
 
         verify(mockClient.get(
-          Uri.parse('https://api.thecatapi.com/v1/images/search'),
-          headers: {'Content-Type': 'application/json'},
+          Uri.parse(RemoteConstants.catImageUri),
+          headers: RemoteConstants.headers,
         ));
       },
     );

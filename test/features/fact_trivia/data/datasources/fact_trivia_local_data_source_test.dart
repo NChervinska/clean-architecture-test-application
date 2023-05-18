@@ -28,8 +28,9 @@ void main() {
     test(
       'should return FactTrivia from SharedPreferences when there is one in the cache',
       () async {
-        when(mockSharedPreferences.getString(any))
-            .thenReturn(fixture('trivia.json'));
+        when(mockSharedPreferences.getString(any)).thenReturn(
+          fixture('trivia.json'),
+        );
 
         final result = await dataSource.getCacheFactTrivia();
 
@@ -54,8 +55,9 @@ void main() {
     const testFactTriviaModel = FactTriviaModel(fact: 'f', length: 1);
 
     test('should call SharedPreferences to cache the data', () {
-      when(mockSharedPreferences.setString(any, any))
-          .thenAnswer((_) async => true);
+      when(mockSharedPreferences.setString(any, any)).thenAnswer((_) async {
+        return true;
+      });
       dataSource.cacheFactTrivia(testFactTriviaModel);
 
       final expectedJsonString = json.encode(testFactTriviaModel.toJson());

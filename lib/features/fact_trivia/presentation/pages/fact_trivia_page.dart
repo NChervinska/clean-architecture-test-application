@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/injection_container.dart';
 import '../bloc/cat_image_bloc.dart';
 import '../bloc/fact_trivia_bloc.dart';
+import '../fact_trivia_strings.dart';
 import '../widgets/image_view.dart';
 import '../widgets/widgets.dart';
 
@@ -32,7 +33,7 @@ class FactTriviaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cat Fact'),
+        title: const Text(FactTriviaStrings.catFact),
       ),
       body: SafeArea(
         child: _buildBody(context),
@@ -56,7 +57,7 @@ class FactTriviaPage extends StatelessWidget {
                   .add(GetTriviaFactEvent());
               BlocProvider.of<CatImageBloc>(context).add(GetCatImageEvent());
             },
-            child: const Text('Get random fact'),
+            child: const Text(FactTriviaStrings.getRandomFact),
           ),
         ],
       ),

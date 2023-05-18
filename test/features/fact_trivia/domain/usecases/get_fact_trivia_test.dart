@@ -18,8 +18,7 @@ void main() {
     usecase = GetFactTrivia(mockFactTriviaRepository);
   });
 
-  const testFact = 'Test';
-  const testFactTrivia = FactTrivia(fact: testFact, length: testFact.length);
+  const testFactTrivia = FactTrivia(fact: 'Test', length: 4);
 
   test('should get fact from the repository', () async {
     when(mockFactTriviaRepository.getFactTrivia()).thenAnswer(

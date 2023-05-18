@@ -23,8 +23,9 @@ void main() {
     const testFactTrivia = FactTrivia(fact: 'fact', length: 4);
 
     test('should get data from the use case', () async {
-      when(mockGetFactTrivia(any))
-          .thenAnswer((_) async => const Right(testFactTrivia));
+      when(mockGetFactTrivia(any)).thenAnswer((_) async {
+        return const Right(testFactTrivia);
+      });
 
       bloc.add(GetTriviaFactEvent());
       await untilCalled(mockGetFactTrivia(any));
@@ -35,16 +36,14 @@ void main() {
     blocTest(
       'emits [Success] when Event is added',
       setUp: () {
-        when(mockGetFactTrivia(any))
-            .thenAnswer((_) async => const Right(testFactTrivia));
+        when(mockGetFactTrivia(any)).thenAnswer((_) async {
+          return const Right(testFactTrivia);
+        });
       },
       build: () => bloc,
       act: (bloc) => bloc.add(GetTriviaFactEvent()),
       expect: () {
-        return [
-          FactTriviaLoading(),
-          const FactTriviaLoaded(testFactTrivia),
-        ];
+        return [FactTriviaLoading(), const FactTriviaLoaded(testFactTrivia)];
       },
     );
   });
