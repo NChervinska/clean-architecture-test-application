@@ -3,13 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:test_application/features/fact_trivia/data/datasources/cat_image_remote_data_source.dart'
-    as _i3;
-import 'package:test_application/features/fact_trivia/data/models/cat_image_model.dart'
     as _i2;
+import 'package:test_application/features/fact_trivia/data/models/cat_image_model.dart'
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -22,37 +22,22 @@ import 'package:test_application/features/fact_trivia/data/models/cat_image_mode
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeCatImageModel_0 extends _i1.SmartFake implements _i2.CatImageModel {
-  _FakeCatImageModel_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [CatImageRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCatImageRemoteDataSource extends _i1.Mock
-    implements _i3.CatImageRemoteDataSource {
+    implements _i2.CatImageRemoteDataSource {
   MockCatImageRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.CatImageModel> getCatImage() => (super.noSuchMethod(
+  _i3.Future<List<_i4.CatImageModel>> getCatImage() => (super.noSuchMethod(
         Invocation.method(
           #getCatImage,
           [],
         ),
-        returnValue: _i4.Future<_i2.CatImageModel>.value(_FakeCatImageModel_0(
-          this,
-          Invocation.method(
-            #getCatImage,
-            [],
-          ),
-        )),
-      ) as _i4.Future<_i2.CatImageModel>);
+        returnValue:
+            _i3.Future<List<_i4.CatImageModel>>.value(<_i4.CatImageModel>[]),
+      ) as _i3.Future<List<_i4.CatImageModel>>);
 }

@@ -5,18 +5,18 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test_application/features/fact_trivia/domain/enities/fact_trivia.dart';
 import 'package:test_application/features/fact_trivia/domain/usecases/get_fact_trivia.dart';
-import 'package:test_application/features/fact_trivia/presentation/bloc/fact_trivia_bloc.dart';
+import 'package:test_application/features/fact_trivia/presentation/bloc/fact_trivia_cubit.dart';
 
-import 'fact_trivia_bloc_test.mocks.dart';
+import 'fact_trivia_cubit_test.mocks.dart';
 
 @GenerateMocks([GetFactTrivia])
 void main() {
-  late FactTriviaBloc bloc;
+  late FactTriviaCubit bloc;
   late MockGetFactTrivia mockGetFactTrivia;
 
   setUp(() {
     mockGetFactTrivia = MockGetFactTrivia();
-    bloc = FactTriviaBloc(mockGetFactTrivia);
+    bloc = FactTriviaCubit(mockGetFactTrivia);
   });
 
   group('GetTriviaForFact', () {
@@ -27,7 +27,7 @@ void main() {
         return const Right(testFactTrivia);
       });
 
-      bloc.add(GetTriviaFactEvent());
+      bloc.getTriviaFact();
       await untilCalled(mockGetFactTrivia(any));
 
       verify(mockGetFactTrivia(const FactParams()));
@@ -41,7 +41,7 @@ void main() {
         });
       },
       build: () => bloc,
-      act: (bloc) => bloc.add(GetTriviaFactEvent()),
+      act: (bloc) => bloc.getTriviaFact(),
       expect: () {
         return [FactTriviaLoading(), const FactTriviaLoaded(testFactTrivia)];
       },

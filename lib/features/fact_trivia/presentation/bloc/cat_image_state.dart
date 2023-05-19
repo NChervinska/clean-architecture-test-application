@@ -1,4 +1,4 @@
-part of 'cat_image_bloc.dart';
+part of 'cat_image_cubit.dart';
 
 abstract class CatImageState extends Equatable {
   const CatImageState();

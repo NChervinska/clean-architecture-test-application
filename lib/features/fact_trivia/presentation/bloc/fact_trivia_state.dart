@@ -1,4 +1,4 @@
-part of 'fact_trivia_bloc.dart';
+part of 'fact_trivia_cubit.dart';
 
 abstract class FactTriviaState extends Equatable {
   const FactTriviaState();

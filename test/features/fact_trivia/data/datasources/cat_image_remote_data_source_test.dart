@@ -59,7 +59,7 @@ void main() {
 
       final result = await dataSource.getCatImage();
 
-      expect(result, testCatImageModel);
+      expect(result.first, testCatImageModel);
     });
 
     test(

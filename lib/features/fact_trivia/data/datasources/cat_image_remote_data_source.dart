@@ -7,7 +7,7 @@ import '../models/cat_image_model.dart';
 import 'remote_constants.dart';
 
 abstract class CatImageRemoteDataSource {
-  Future<CatImageModel> getCatImage();
+  Future<List<CatImageModel>> getCatImage();
 }
 
 class CatImageRemoteDataSourceImpl implements CatImageRemoteDataSource {
@@ -16,16 +16,15 @@ class CatImageRemoteDataSourceImpl implements CatImageRemoteDataSource {
   CatImageRemoteDataSourceImpl(this.client);
 
   @override
-  Future<CatImageModel> getCatImage() async {
+  Future<List<CatImageModel>> getCatImage() async {
     final response = await client.get(
       Uri.parse(RemoteConstants.catImageUri),
       headers: RemoteConstants.headers,
     );
     if (response.statusCode != 200) throw ServerException();
 
-    final List listCat = json.decode(response.body);
-    if (listCat.isEmpty) throw ServerException();
+    final List listImage = json.decode(response.body);
 
-    return CatImageModel.fromJson(listCat.first);
+    return listImage.map((item) => CatImageModel.fromJson(item)).toList();
   }
 }

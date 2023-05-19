@@ -12,8 +12,8 @@ import '../features/fact_trivia/domain/repositories/cat_image_repository.dart';
 import '../features/fact_trivia/domain/repositories/fact_trivia_repository.dart';
 import '../features/fact_trivia/domain/usecases/get_cat_image.dart';
 import '../features/fact_trivia/domain/usecases/get_fact_trivia.dart';
-import '../features/fact_trivia/presentation/bloc/cat_image_bloc.dart';
-import '../features/fact_trivia/presentation/bloc/fact_trivia_bloc.dart';
+import '../features/fact_trivia/presentation/bloc/cat_image_cubit.dart';
+import '../features/fact_trivia/presentation/bloc/fact_trivia_cubit.dart';
 import 'network/network_info.dart';
 
 final locator = GetIt.instance;
@@ -23,9 +23,9 @@ Future<void> initDependency() async {
   /// Features
   ///
 
-  /// Bloc
-  locator.registerFactory(() => FactTriviaBloc(locator.get()));
-  locator.registerFactory(() => CatImageBloc(locator.get()));
+  /// Cubit
+  locator.registerFactory(() => FactTriviaCubit(locator.get()));
+  locator.registerFactory(() => CatImageCubit(locator.get()));
 
   /// Use case
   locator.registerLazySingleton(() => GetFactTrivia(locator.get()));

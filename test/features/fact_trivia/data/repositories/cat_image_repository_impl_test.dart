@@ -37,7 +37,7 @@ void main() {
       'should return remote dara when the call to remote data source is successful',
       () async {
         when(mockRemoteDataSource.getCatImage()).thenAnswer((_) async {
-          return testCatImageModel;
+          return [testCatImageModel];
         });
 
         final result = await repository.getCatImage();

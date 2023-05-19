@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/injection_container.dart';
-import '../bloc/cat_image_bloc.dart';
-import '../bloc/fact_trivia_bloc.dart';
+import '../../../../core/di.dart';
+import '../bloc/cat_image_cubit.dart';
+import '../bloc/fact_trivia_cubit.dart';
 import '../fact_trivia_strings.dart';
 import '../widgets/image_view.dart';
 import '../widgets/widgets.dart';
@@ -12,15 +12,11 @@ class FactTriviaPage extends StatelessWidget {
   static Widget create() {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<FactTriviaBloc>(
-          create: (context) {
-            return locator.get<FactTriviaBloc>()..add(GetTriviaFactEvent());
-          },
+        BlocProvider<FactTriviaCubit>(
+          create: (_) => locator.get<FactTriviaCubit>(),
         ),
-        BlocProvider<CatImageBloc>(
-          create: (context) {
-            return locator.get<CatImageBloc>()..add(GetCatImageEvent());
-          },
+        BlocProvider<CatImageCubit>(
+          create: (_) => locator.get<CatImageCubit>(),
         ),
       ],
       child: const FactTriviaPage._(),
@@ -53,9 +49,8 @@ class FactTriviaPage extends StatelessWidget {
           const SizedBox(height: 12),
           ElevatedButton(
             onPressed: () {
-              BlocProvider.of<FactTriviaBloc>(context)
-                  .add(GetTriviaFactEvent());
-              BlocProvider.of<CatImageBloc>(context).add(GetCatImageEvent());
+              context.read<FactTriviaCubit>().getTriviaFact();
+              context.read<CatImageCubit>().getCatImage();
             },
             child: const Text(FactTriviaStrings.getRandomFact),
           ),
@@ -65,16 +60,14 @@ class FactTriviaPage extends StatelessWidget {
   }
 
   Widget _buildFactState() {
-    return BlocBuilder<FactTriviaBloc, FactTriviaState>(
+    return BlocBuilder<FactTriviaCubit, FactTriviaState>(
       builder: (context, state) {
         if (state is FactTriviaError) {
           return MessageDisplay(message: state.errorMessage);
         }
         if (state is FactTriviaLoading) {
-          return const Expanded(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         }
 
@@ -87,7 +80,7 @@ class FactTriviaPage extends StatelessWidget {
   }
 
   Widget _buildCatState() {
-    return BlocBuilder<CatImageBloc, CatImageState>(
+    return BlocBuilder<CatImageCubit, CatImageState>(
       builder: (context, state) {
         if (state is CatImageLoaded) return ImageView(url: state.image.url);
 

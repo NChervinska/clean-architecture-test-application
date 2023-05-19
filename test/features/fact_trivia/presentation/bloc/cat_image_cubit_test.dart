@@ -5,18 +5,18 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test_application/features/fact_trivia/domain/enities/cat_image.dart';
 import 'package:test_application/features/fact_trivia/domain/usecases/get_cat_image.dart';
-import 'package:test_application/features/fact_trivia/presentation/bloc/cat_image_bloc.dart';
+import 'package:test_application/features/fact_trivia/presentation/bloc/cat_image_cubit.dart';
 
-import 'cat_image_bloc_test.mocks.dart';
+import 'cat_image_cubit_test.mocks.dart';
 
 @GenerateMocks([GetCatImage])
 void main() {
-  late CatImageBloc bloc;
+  late CatImageCubit bloc;
   late MockGetCatImage mockGetCatImage;
 
   setUp(() {
     mockGetCatImage = MockGetCatImage();
-    bloc = CatImageBloc(mockGetCatImage);
+    bloc = CatImageCubit(mockGetCatImage);
   });
 
   group('GetCatImage', () {
@@ -27,7 +27,7 @@ void main() {
         return const Right(testCatImage);
       });
 
-      bloc.add(GetCatImageEvent());
+      bloc.getCatImage();
       await untilCalled(mockGetCatImage(any));
 
       verify(mockGetCatImage(const CatParams()));
@@ -41,7 +41,7 @@ void main() {
         });
       },
       build: () => bloc,
-      act: (bloc) => bloc.add(GetCatImageEvent()),
+      act: (bloc) => bloc.getCatImage(),
       expect: () => [CatImageLoading(), const CatImageLoaded(testCatImage)],
     );
   });
